@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.65](https://github.com/aws/language-server-runtimes/compare/language-server-runtimes-types/v0.1.64...language-server-runtimes-types/v0.1.65) (2026-07-02)
+
+
+### Bug Fixes
+
+* dummy commit to trigger release ([593fd43](https://github.com/aws/language-server-runtimes/commit/593fd433f1ccc2fb07131f4cb9267c96299d8d6b))
+* dummy commit to trigger release ([#765](https://github.com/aws/language-server-runtimes/issues/765)) ([593fd43](https://github.com/aws/language-server-runtimes/commit/593fd433f1ccc2fb07131f4cb9267c96299d8d6b))
+
 ## [0.1.64](https://github.com/aws/language-server-runtimes/compare/language-server-runtimes-types/v0.1.63...language-server-runtimes-types/v0.1.64) (2026-04-02)
 
 
