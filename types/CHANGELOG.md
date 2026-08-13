@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.66](https://github.com/Amazon-Q-Developer/language-server-runtimes/compare/language-server-runtimes-types/v0.1.65...language-server-runtimes-types/v0.1.66) (2026-08-13)
+
+
+### Bug Fixes
+
+* update repository URLs to the Amazon-Q-Developer org ([#775](https://github.com/Amazon-Q-Developer/language-server-runtimes/issues/775)) ([d11ff5c](https://github.com/Amazon-Q-Developer/language-server-runtimes/commit/d11ff5cfd3f4bfb778ef72965265f9de68030c78))
+
 ## [0.1.65](https://github.com/aws/language-server-runtimes/compare/language-server-runtimes-types/v0.1.64...language-server-runtimes-types/v0.1.65) (2026-07-02)
 
 

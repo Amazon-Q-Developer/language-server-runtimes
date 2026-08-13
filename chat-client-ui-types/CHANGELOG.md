@@ -1,5 +1,19 @@
 # Changelog
 
+## [0.1.72](https://github.com/Amazon-Q-Developer/language-server-runtimes/compare/chat-client-ui-types/v0.1.71...chat-client-ui-types/v0.1.72) (2026-08-13)
+
+
+### Bug Fixes
+
+* update repository URLs to the Amazon-Q-Developer org ([#775](https://github.com/Amazon-Q-Developer/language-server-runtimes/issues/775)) ([d11ff5c](https://github.com/Amazon-Q-Developer/language-server-runtimes/commit/d11ff5cfd3f4bfb778ef72965265f9de68030c78))
+
+
+### Dependencies
+
+* The following workspace dependencies were updated
+  * dependencies
+    * @aws/language-server-runtimes-types bumped from ^0.1.65 to ^0.1.66
+
 ## [0.1.71](https://github.com/aws/language-server-runtimes/compare/chat-client-ui-types/v0.1.70...chat-client-ui-types/v0.1.71) (2026-07-02)
 
 
