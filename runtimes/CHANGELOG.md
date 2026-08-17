@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.21](https://github.com/Amazon-Q-Developer/language-server-runtimes/compare/language-server-runtimes/v0.3.20...language-server-runtimes/v0.3.21) (2026-08-17)
+
+
+### Features
+
+* notify servers when credentials are updated ([#779](https://github.com/Amazon-Q-Developer/language-server-runtimes/issues/779)) ([adc989a](https://github.com/Amazon-Q-Developer/language-server-runtimes/commit/adc989aab7e7d293b2f46f99e9737bf7981395cc))
+
 ## [0.3.20](https://github.com/Amazon-Q-Developer/language-server-runtimes/compare/language-server-runtimes/v0.3.19...language-server-runtimes/v0.3.20) (2026-08-13)
 
 
