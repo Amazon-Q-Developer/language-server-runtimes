@@ -6,7 +6,7 @@ on:
 jobs:
     notify:
         name: Slack notification
-        if: github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.draft == false && github.event.pull_request.head.repo.fork == false
+        if: false && github.event.pull_request.user.login != 'dependabot[bot]' && github.event.pull_request.draft == false && github.event.pull_request.head.repo.fork == false
         runs-on: [ubuntu-latest]
         steps:
             - name: Post message
@@ -19,5 +19,5 @@ jobs:
                         "title": ${{ toJson(github.event.pull_request.title) }},
                         "author": ${{ toJson(github.event.pull_request.user.login) }},
                         "link": ${{ toJson(github.event.pull_request.html_url) }},
-                        "repository": "Language-server-runtimes" 
+                        "repository": "Language-server-runtimes"
                       }
