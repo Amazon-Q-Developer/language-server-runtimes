@@ -221,6 +221,10 @@ ${JSON.stringify({ ...result.capabilities, ...result.awsServerCapabilities })}`
         this.routeNotificationToAllServers((server, type) => server.notifyCredentialsDeletion(type), type)
     }
 
+    onCredentialsUpdate = (type: CredentialsType): void => {
+        this.routeNotificationToAllServers((server, type) => server.notifyCredentialsUpdate(type), type)
+    }
+
     onInitialized = (params: InitializedParams): void => {
         const workspaceCapabilities = this.clientInitializeParams?.capabilities.workspace
         if (workspaceCapabilities?.didChangeConfiguration?.dynamicRegistration) {

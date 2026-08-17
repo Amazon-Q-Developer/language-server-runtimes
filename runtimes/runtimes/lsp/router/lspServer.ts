@@ -42,6 +42,7 @@ export class LspServer {
     private initializedHandler?: NotificationHandler<InitializedParams>
     private updateConfigurationHandler?: RequestHandler<UpdateConfigurationParams, void, void>
     private credentialsDeleteHandler?: (type: CredentialsType) => void
+    private credentialsUpdateHandler?: (type: CredentialsType) => void
 
     private clientSupportsNotifications?: boolean
     private initializeResult?: PartialInitializeResult
@@ -79,6 +80,10 @@ export class LspServer {
 
     setCredentialsDeleteHandler = (handler: (type: CredentialsType) => void): void => {
         this.credentialsDeleteHandler = handler
+    }
+
+    setCredentialsUpdateHandler = (handler: (type: CredentialsType) => void): void => {
+        this.credentialsUpdateHandler = handler
     }
 
     public setInitializedHandler = (handler: NotificationHandler<InitializedParams>): void => {
@@ -244,6 +249,20 @@ export class LspServer {
     notifyCredentialsDeletion = (type: CredentialsType): void => {
         if (this.credentialsDeleteHandler) {
             this.credentialsDeleteHandler(type)
+        }
+    }
+
+    notifyCredentialsUpdate = (type: CredentialsType): void => {
+        if (!this.credentialsUpdateHandler) {
+            return
+        }
+
+        try {
+            this.credentialsUpdateHandler(type)
+        } catch (error) {
+            // This runs inside the client's credentials request. A server that throws here must not
+            // fail that request, or the client is left believing the credentials never landed.
+            this.logger.log(`Credentials update handler threw, ignoring: ${(error as Error)?.message}`)
         }
     }
 }

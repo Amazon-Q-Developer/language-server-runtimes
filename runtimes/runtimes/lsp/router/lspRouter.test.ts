@@ -415,6 +415,22 @@ describe('LspRouter', () => {
         })
     })
 
+    describe('onCredentialsUpdate', () => {
+        it('should send notifyCredentialsUpdate to all servers', () => {
+            const params: CredentialsType = 'bearer'
+
+            const spy1 = sandbox.spy()
+            const spy2 = sandbox.spy()
+            const server1 = newServer({ credentialsUpdateHandler: spy1 })
+            const server2 = newServer({ credentialsUpdateHandler: spy2 })
+
+            lspRouter.servers = [server1, server2]
+            lspRouter.onCredentialsUpdate(params)
+            assert(spy1.calledWith(params))
+            assert(spy2.calledWith(params))
+        })
+    })
+
     describe('handleGetConfigurationFromServer', () => {
         it(`should return the result from initializeResult cache for key: ${SERVER_CAPABILITES_CONFIGURATION_SECTION}`, async () => {
             const initHandler1 = () => {
@@ -1000,6 +1016,7 @@ describe('LspRouter', () => {
         initializedHandler,
         updateConfigurationHandler,
         credentialsDeleteHandler,
+        credentialsUpdateHandler,
         didChangeWorkspaceFoldersHandler,
         didCreateFilesHandler,
         didDeleteFilesHandler,
@@ -1014,6 +1031,7 @@ describe('LspRouter', () => {
         initializedHandler?: any
         updateConfigurationHandler?: any
         credentialsDeleteHandler?: any
+        credentialsUpdateHandler?: any
         didChangeWorkspaceFoldersHandler?: any
         didCreateFilesHandler?: any
         didDeleteFilesHandler?: any
@@ -1028,6 +1046,7 @@ describe('LspRouter', () => {
         server.setInitializedHandler(initializedHandler)
         server.setUpdateConfigurationHandler(updateConfigurationHandler)
         server.setCredentialsDeleteHandler(credentialsDeleteHandler)
+        server.setCredentialsUpdateHandler(credentialsUpdateHandler)
         server.setDidChangeWorkspaceFoldersHandler(didChangeWorkspaceFoldersHandler)
         server.setDidCreateFilesHandler(didCreateFilesHandler)
         server.setDidDeleteFilesHandler(didDeleteFilesHandler)

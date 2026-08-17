@@ -325,6 +325,7 @@ export const baseRuntime = (connections: { reader: MessageReader; writer: Messag
         const sdkInitializator: SDKInitializator = <T, P>(Ctor: SDKClientConstructorV3<T, P>, current_config: P): T =>
             new Ctor({ ...current_config })
         credentialsProvider.onCredentialsDeleted = lspServer.setCredentialsDeleteHandler
+        credentialsProvider.onCredentialsUpdated = lspServer.setCredentialsUpdateHandler
 
         const agent = newAgent()
 

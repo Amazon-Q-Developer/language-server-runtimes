@@ -42,6 +42,7 @@ export class Auth {
     private credentialsEncoding: CredentialsEncoding | undefined
     private lspRouter: LspRouter
     private credentialsDeleteHandler?: (type: CredentialsType) => void
+    private credentialsUpdateHandler?: (type: CredentialsType) => void
 
     constructor(
         private readonly connection: Connection,
@@ -116,6 +117,9 @@ export class Auth {
             onCredentialsDeleted: (handler: (type: CredentialsType) => void) => {
                 this.credentialsDeleteHandler = handler
             },
+            onCredentialsUpdated: (handler: (type: CredentialsType) => void) => {
+                this.credentialsUpdateHandler = handler
+            },
         }
 
         this.registerLspCredentialsUpdateHandlers()
@@ -151,6 +155,9 @@ export class Auth {
 
             onCredentialsDeleted: (handler: (type: CredentialsType) => void) => {
                 this.credentialsDeleteHandler = handler
+            },
+            onCredentialsUpdated: (handler: (type: CredentialsType) => void) => {
+                this.credentialsUpdateHandler = handler
             },
         }
     }
@@ -239,11 +246,22 @@ export class Auth {
                 this.iamCredentials = creds as IamCredentials
                 // Prevent modifying credentials by implementors
                 Object.freeze(this.iamCredentials)
+                this.notifyCredentialsUpdate('iam')
             } else {
                 this.bearerCredentials = creds as BearerCredentials
                 Object.freeze(this.bearerCredentials)
+                this.notifyCredentialsUpdate('bearer')
             }
         }
+    }
+
+    /**
+     * Announces stored credentials so servers can start dependent work immediately instead of waiting
+     * for whatever happens to ask for a service first. Fired after the credentials are readable, and
+     * routed to every server the same way deletion is, so more than one server can react.
+     */
+    private notifyCredentialsUpdate(type: CredentialsType) {
+        this.lspRouter.onCredentialsUpdate(type)
     }
 
     private async decodeCredentialsRequestToken<T>(request: UpdateCredentialsParams): Promise<T> {

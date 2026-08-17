@@ -343,5 +343,30 @@ describe('LspServer', () => {
             assert(credentialsDeleteHandler.calledOnce)
             assert(credentialsDeleteHandler.calledWith(params))
         })
+
+        it('should handle credential update notifications', async () => {
+            const credentialsUpdateHandler = sandbox.stub()
+            const params = 'bearer'
+
+            lspServer.setCredentialsUpdateHandler(credentialsUpdateHandler)
+            lspServer.notifyCredentialsUpdate(params)
+
+            assert(credentialsUpdateHandler.calledOnce)
+            assert(credentialsUpdateHandler.calledWith(params))
+        })
+
+        it('should not throw when no credential update handler is registered', async () => {
+            assert.doesNotThrow(() => lspServer.notifyCredentialsUpdate('bearer'))
+        })
+
+        it('should swallow errors thrown by a credential update handler', async () => {
+            // This runs inside the client's credentials request. A server that throws must not fail
+            // that request, or the client is left believing the credentials never landed.
+            lspServer.setCredentialsUpdateHandler(() => {
+                throw new Error('handler exploded')
+            })
+
+            assert.doesNotThrow(() => lspServer.notifyCredentialsUpdate('bearer'))
+        })
     })
 })

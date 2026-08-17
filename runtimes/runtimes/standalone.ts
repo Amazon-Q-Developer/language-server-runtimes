@@ -488,6 +488,7 @@ export const standalone = (props: RuntimeProps) => {
             }
 
             credentialsProvider.onCredentialsDeleted = lspServer.setCredentialsDeleteHandler
+            credentialsProvider.onCredentialsUpdated = lspServer.setCredentialsUpdateHandler
 
             return s({
                 chat,
