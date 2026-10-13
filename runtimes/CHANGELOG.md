@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.3.22](https://github.com/Amazon-Q-Developer/language-server-runtimes/compare/language-server-runtimes/v0.3.21...language-server-runtimes/v0.3.22) (2026-10-13)
+
+
+### Features
+
+* **runtimes:** add checked workspace file operations ([#784](https://github.com/Amazon-Q-Developer/language-server-runtimes/issues/784)) ([f1d4015](https://github.com/Amazon-Q-Developer/language-server-runtimes/commit/f1d4015dc0350388ed34df32c4fa18122bd79ab1))
+
 ## [0.3.21](https://github.com/Amazon-Q-Developer/language-server-runtimes/compare/language-server-runtimes/v0.3.20...language-server-runtimes/v0.3.21) (2026-08-17)
 
 
