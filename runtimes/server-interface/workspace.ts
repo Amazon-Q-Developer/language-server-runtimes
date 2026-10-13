@@ -1,4 +1,5 @@
 import { TextDocument, WorkspaceFolder } from '../protocol'
+import { CheckedFileOperations } from './checkedFile'
 
 // Minimal version of fs.Dirent
 interface Dirent {
@@ -52,6 +53,8 @@ export type Workspace = {
         isFile: (path: string) => Promise<boolean>
         rm: (dir: string, options?: { recursive?: boolean; force?: boolean }) => Promise<void>
         writeFile: (path: string, data: string, options?: { mode?: number | string }) => Promise<void>
+        /** Versioned regular-file operations; absent on unsupported platforms/providers. */
+        checkedFiles?: CheckedFileOperations
         appendFile: (path: string, data: string) => Promise<void>
         mkdir: (path: string, options?: { recursive?: boolean }) => Promise<string | undefined>
         /**

@@ -11,8 +11,9 @@ import {
     SDKClientConstructorV3,
     SDKInitializator,
     Agent,
+    CheckedFileOperations,
 } from '../server-interface'
-import { StubbedInstance, stubInterface } from 'ts-sinon'
+import sinon, { StubbedInstance, stubInterface } from 'ts-sinon'
 import {
     CancellationToken,
     CompletionParams,
@@ -49,6 +50,8 @@ export class TestFeatures {
         extensions: StubbedInstance<Lsp['extensions']>
     }
     workspace: StubbedInstance<Workspace>
+    /** Stubs initially installed at workspace.fs.checkedFiles; configure outcomes before use. */
+    checkedFiles: StubbedInstance<CheckedFileOperations>
     logging: StubbedInstance<Logging>
     telemetry: StubbedInstance<Telemetry>
     documents: {
@@ -73,6 +76,19 @@ export class TestFeatures {
         this.lsp.workspace = stubInterface<typeof this.lsp.workspace>()
         this.lsp.extensions = stubInterface<typeof this.lsp.extensions>()
         this.workspace = stubInterface<Workspace>()
+        this.checkedFiles = {
+            version: 1,
+            capture: sinon
+                .stub<Parameters<CheckedFileOperations['capture']>, ReturnType<CheckedFileOperations['capture']>>()
+                .rejects(new Error('checkedFiles.capture is not configured')),
+            read: sinon
+                .stub<Parameters<CheckedFileOperations['read']>, ReturnType<CheckedFileOperations['read']>>()
+                .rejects(new Error('checkedFiles.read is not configured')),
+            update: sinon
+                .stub<Parameters<CheckedFileOperations['update']>, ReturnType<CheckedFileOperations['update']>>()
+                .rejects(new Error('checkedFiles.update is not configured')),
+        }
+        this.workspace.fs.checkedFiles = this.checkedFiles
         this.logging = stubInterface<Logging>()
         this.telemetry = stubInterface<Telemetry>()
         this.documents = {}

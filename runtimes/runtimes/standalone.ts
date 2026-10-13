@@ -97,6 +97,7 @@ import { getTelemetryReasonDesc } from './util/shared'
 import { writeSync } from 'fs'
 import { format } from 'util'
 import { editCompletionRequestType } from '../protocol/editCompletions'
+import { createCheckedFileOperations } from './util/standalone/checkedFileOperations'
 
 // Honor shared aws config file
 if (checkAWSConfigFile()) {
@@ -286,6 +287,10 @@ export const standalone = (props: RuntimeProps) => {
                     lspConnection.sendNotification(didRemoveFileOrDirNotificationType.method, { path: dir })
                 },
                 isFile: path => stat(path).then(({ isFile }) => isFile()),
+                // `logging` is declared later in this function; the arrow defers the read past its TDZ.
+                checkedFiles: createCheckedFileOperations({ debug: message => logging.debug(message) }, path =>
+                    lspConnection.sendNotification(didWriteFileNotificationType.method, { path })
+                ),
                 writeFile: async (path, data, options?) => {
                     await writeFile(path, data, options)
                     lspConnection.sendNotification(didWriteFileNotificationType.method, { path })
